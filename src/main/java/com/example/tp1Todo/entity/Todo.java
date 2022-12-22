@@ -25,6 +25,7 @@ public class Todo {
     @Temporal(TemporalType.DATE)
     private Date date;
 
+    // ajouter not null?
     @ColumnDefault("false")
     private Boolean isDone;
 }

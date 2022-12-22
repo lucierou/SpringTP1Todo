@@ -46,6 +46,6 @@ public class TodoService implements IDAO<Todo> {
 
     @Override
     public List<Todo> findAll() {
-        return null;
+        return session.createNativeQuery("SELECT * FROM todo;").getResultList();
     }
 }
