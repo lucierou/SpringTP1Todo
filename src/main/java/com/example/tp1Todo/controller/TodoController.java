@@ -26,7 +26,20 @@ public class TodoController {
         return todoService.findById(id);
     }
 
+    @GetMapping("/donetodos")
+    public List<Todo> getDoneTodos() {
+        return todoService.getDoneTodos();
+    }
 
+    @GetMapping("/notdonetodos")
+    public List<Todo> getNotDoneTodos() {
+        return todoService.getNotDoneTodos();
+    }
+
+    @PostMapping("/filterByIsDone")
+    public List<Todo> filterByIsDone(@RequestParam("isDone") Boolean isDone) {
+        return todoService.filterByIsDone(isDone);
+    }
 
     @PostMapping("/create")
     public Todo createTodo(@RequestBody Todo todo) {

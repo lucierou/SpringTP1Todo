@@ -3,6 +3,7 @@ package com.example.tp1Todo.service;
 import com.example.tp1Todo.entity.Todo;
 import com.example.tp1Todo.interfaces.IDAO;
 import com.example.tp1Todo.tools.ServiceHibernate;
+import jakarta.persistence.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
@@ -54,4 +55,21 @@ public class TodoService implements IDAO<Todo> {
     public List<Todo> findAll() {
         return session.createNativeQuery("SELECT * FROM todo;").getResultList();
     }
+
+    public List<Todo> getDoneTodos() {
+        return session.createNativeQuery("SELECT * FROM todo WHERE isDone = true;").getResultList();
+    }
+
+    public List<Todo> getNotDoneTodos() {
+        return session.createNativeQuery("SELECT * FROM todo WHERE isDone = false;").getResultList();
+    }
+
+    public List<Todo> filterByIsDone(Boolean isDone) {
+        Query query = session.createQuery("SELECT t FROM Todo t WHERE t.isDone = :isDone");
+        query.setParameter("isDone", isDone);
+        List<Todo> todos = query.getResultList();
+        return todos;
+    }
+
+
 }
