@@ -31,12 +31,18 @@ public class TodoService implements IDAO<Todo> {
 
     @Override
     public boolean update(Todo o) {
-        return false;
+        session.beginTransaction();
+        session.update(o);
+        session.getTransaction().commit();
+        return true;
     }
 
     @Override
     public boolean delete(Todo o) {
-        return false;
+        session.beginTransaction();
+        session.delete(o);
+        session.getTransaction().commit();
+        return true;
     }
 
     @Override

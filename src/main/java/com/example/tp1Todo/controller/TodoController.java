@@ -37,6 +37,33 @@ public class TodoController {
         return null;
     }
 
+    @PostMapping("/update/{id}")
+    public String updateTodo(@PathVariable("id") Integer id, @RequestBody Todo newTodo) {
+        Todo todo = todoService.findById(id);
+
+        if (todo != null) {
+            todo.setTitle(newTodo.getTitle());
+            todo.setDescription(newTodo.getDescription());
+            todo.setDate(newTodo.getDate());
+            todo.setIsDone(newTodo.getIsDone());
+            Boolean b = todoService.update(todo);
+            if (b) {
+                return "La todo avec l'id " + id + " a été modifiée : " + todo;
+            }
+        }
+        return "Modification impossible";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteTodo(@PathVariable Integer id) {
+        Todo todo = todoService.findById(id);
+        Boolean b = todoService.delete(todo);
+        if (b) {
+            return "Todo avec l'id " + id + " supprimée";
+        }
+        return "Suppression impossible: pas de todo avec cet id";
+    }
+
 
 
 
