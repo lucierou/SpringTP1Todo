@@ -64,7 +64,19 @@ public class TodoController {
         return "Suppression impossible: pas de todo avec cet id";
     }
 
+    @PostMapping("/toggleIsDone/{id}")
+    public String toggleTodoIsDone(@PathVariable("id") Integer id) {
+        Todo todo = todoService.findById(id);
 
+        if (todo != null) {
+            todo.setIsDone(!todo.getIsDone());
+            Boolean b = todoService.update(todo);
+            if (b) {
+                return "L'état du todo avec l'id " + id + " a été modifié : " + todo;
+            }
+        }
+        return "Modification impossible";
+    }
 
 
 
