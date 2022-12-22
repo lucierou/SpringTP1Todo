@@ -21,6 +21,11 @@ public class TodoController {
         return todoService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Todo findById(@PathVariable Integer id) {
+        return todoService.findById(id);
+    }
+
 
 
     @PostMapping("/create")
